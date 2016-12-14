@@ -63,7 +63,7 @@ def train(self, directory):
 
 
 	def testFile(self, filename, model, pca, phone_number, mapping):
-		test_data = self.featuresObj.getFeaturesFromWave(filename)  ### frames by features(34)
+		test_data = self.featuresObj.getFeaturesFromFile(filename)  ### frames by features(34)
 		X_test = test_data
 		X_test = pca.transform(X_test)
 		modelNN = model.predict(X_test)
@@ -87,7 +87,6 @@ def train(self, directory):
 			else:
 				return False	
 		except Exception, e:
-			print "Something went wrong. Try entering a new phone number without characters"
 			raise e
 		
 
@@ -149,7 +148,7 @@ class Features(object):
 						fn = fname.split('/')
 						fn = fn[-1]
 						if fn[-4:]=='.txt':
-							featuresT = self.getFeaturesFromWave(fname)
+							featuresT = self.getFeaturesFromFile(fname)
 							if flag==False:
 								c = featuresT
 								flag = True
@@ -194,10 +193,7 @@ if __name__ == "__main__":
 	num_args = len(sys.argv)
 
 	if num_args < 3:
-		print """Enter task to be performed :
-				python keras1.py train /path to train directory  for training
-				python keras1.py test phone_number /path to test file for test
-				Enter directory name as well as test file name with it
+		""" directory name as well as test file name with it
 				"""
 		sys.exit(0)
 
